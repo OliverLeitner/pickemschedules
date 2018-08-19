@@ -1,0 +1,8 @@
+cache/*.*
+cache/*
+www/scripts/package-lock.json
+www/scripts/node_modules/*
+www/scripts/node_modules/*.*
+libs/composer.lock
+libs/vendor/*
+libs/vendor/*.*

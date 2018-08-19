@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="//getbootstrap.com/favicon.ico">
+        <title>fill pickems</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="scripts/node_modules/pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet/less" type="text/css" href="styles/fe.less" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.7.1/less.min.js" ></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/">PHP NFL Pickem Schedule Editor</a>
+        </nav>
+        <main role="main" class="container">
+        <div class="container-responsive">
+            <h2>Write a schedule</h2>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="homeID">home team</label>
+                        <select class="form-control" id="homeID" name="homeID" required>
+                            {% for team in teams %}
+                            <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
+                            {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
+                            {{ team['city'] }} {{ team['team'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose a home team.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="visitorID">visitor team</label>
+                        <select class="form-control" id="visitorID" name="visitorID" required>
+                            {% for team in teams %}
+                            <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
+                            {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
+                            {{ team['city'] }} {{ team['team'] }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose a visitor team.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="username">gameTimeEastern</label>
+                    <div class="input-group date" id="datetimepicker">
+                        <input type="text" class="form-control datepicker" name="gameTimeEastern" required>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        <div class="invalid-feedback">
+                            Please enter a valid game time.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="weekNum">weekNum</label>
+                    <input type="number" min="1" class="form-control" name="weekNum" id="weekNum" placeholder="weekNum" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid week number.
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="button" onclick="fetchMe($('form').serialize());">Add game</button>
+            </form>
+        </div>
+        <div class="container-responsive">
+            <hr class="mb-3" />
+            <h2>List Schedules</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>gameID</th>
+                            <th>weekNum</th>
+                            <th>gameTimeEastern</th>
+                            <th>homeID</th>
+                            <th>homeScore</th>
+                            <th>visitorID</th>
+                            <th>visitorScore</th>
+                            <th>overtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in schedules %}
+                        <tr>
+                            <td>{{ schedule['gameID'] }}</td>
+                            <td>{{ schedule['weekNum'] }}</td>
+                            <td>{{ schedule['gameTimeEastern'] }}</td>
+                            <td>{{ schedule['homeID'] }}</td>
+                            <td>{{ schedule['homeScore'] }}</td>
+                            <td>{{ schedule['visitorID'] }}</td>
+                            <td>{{ schedule['visitorScore'] }}</td>
+                            <td>{{ schedule['overtime'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </main>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="scripts/node_modules/pc-bootstrap4-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="scripts/custom.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('.datepicker').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                });
+            });
+        </script>
+    </body>
+</html>

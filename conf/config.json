@@ -1,0 +1,7 @@
+{
+    "username": "root",
+    "password": "test",
+    "server":   "localhost",
+    "database": "database",
+    "table":    "nflp_schedule"
+}

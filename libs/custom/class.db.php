@@ -1,0 +1,4 @@
+<?php
+/**
+ * database handler
+ */
