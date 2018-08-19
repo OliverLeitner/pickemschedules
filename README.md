@@ -22,18 +22,18 @@ http://www.espn.com/nfl/schedule/_/week/1/seasontype/2
 
 requirements:
 
-composer: https://getcomposer.org/
-nodejs: https://nodejs.org/en/
-a web server (one that can serve static html and php files)
-a database (i am using mariadb)
+composer: https://getcomposer.org/  
+nodejs: https://nodejs.org/en/  
+a web server (one that can serve static html and php files)  
+a database (i am using mariadb)  
 
 to install:
 
-cd /path/to/pickemschedules/libs
-composer update
-cd /path/to/pickemschedules/www/scripts
-npm install
-edit /path/to/pickemschedules/conf/config.json to fit your needs.
+cd /path/to/pickemschedules/libs  
+composer update  
+cd /path/to/pickemschedules/www/scripts  
+npm install  
+edit /path/to/pickemschedules/conf/config.json to fit your needs.  
 
 then visit the tool with your webbrowser.
 
