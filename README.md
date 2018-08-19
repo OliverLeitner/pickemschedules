@@ -1,4 +1,4 @@
-# pickemschedules
+# NFL pickem schedules for phppickem
 
 ![Alt text](pickem.png?raw=true "nfl pickem schedule editor")
 
