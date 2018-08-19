@@ -36,3 +36,7 @@ npm install
 edit /path/to/pickemschedules/conf/config.json to fit your needs.
 
 then visit the tool with your webbrowser.
+
+to start a new season:
+
+truncate table nflp_schedules
