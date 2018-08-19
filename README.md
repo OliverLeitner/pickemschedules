@@ -1,4 +1,7 @@
 # pickemschedules
+
+![Alt text](pickem.png?raw=true "nfl pickem schedule editor")
+
 phppickem (nfl pickem game) schedule editor and current schedule table dump
 
 the game source (end of life, no longer maintained by the author) can be found at:
