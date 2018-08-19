@@ -24,7 +24,7 @@ requirements:
 
 composer: https://getcomposer.org/  
 nodejs: https://nodejs.org/en/  
-a web server (one that can serve static html and php files)  
+a web server (one that can serve static and php files)  
 a database (i am using mariadb)  
 
 to install:
