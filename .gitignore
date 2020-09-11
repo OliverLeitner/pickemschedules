@@ -5,3 +5,4 @@ www/scripts/node_modules/*.*
 libs/composer.lock
 libs/vendor/*
 libs/vendor/*.*
+conf/config.json
