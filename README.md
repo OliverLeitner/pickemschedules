@@ -12,7 +12,7 @@ more about the game:
 
 http://www.phppickem.org/
 
-the database represents the 2018 game schedule as mysql dump file.
+the database represents the 2020 game schedule as mysql dump file.
 
 just remove the prior season schedule table, and then run the dump against your database.
 
