@@ -4,6 +4,8 @@
   "description": "",
   "main": "custom.js",
   "dependencies": {
+    "@popperjs/core": "^2.4.4",
+    "font-awesome": "^4.7.0",
     "less": "^3.12.2",
     "pc-bootstrap4-datetimepicker": "^4.17.51",
     "whatwg-fetch": "^3.4.1"
