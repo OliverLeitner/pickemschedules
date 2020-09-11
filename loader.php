@@ -14,8 +14,8 @@ $db = adoNewConnection('mysqli'); # eg. 'mysqli' or 'oci8'
 $db->connect($config->config["server"], $config->config["username"], $config->config["password"], $config->config["database"]);
 
 //base template stuff
-$loader = new Twig_Loader_Filesystem('../templates');
-$twig = new Twig_Environment($loader, array(
+$loader = new \Twig\Loader\FilesystemLoader('../templates');
+$twig = new \Twig\Environment($loader, array(
     'cache' => '../cache',
     'debug' => true,
     'auto_reload' => true
