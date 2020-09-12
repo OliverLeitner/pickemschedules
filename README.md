@@ -1,6 +1,6 @@
 # NFL pickem schedules for phppickem
 
-![Alt text](pickem.png?raw=true "nfl pickem schedule editor")
+![Alt text](pickem.PNG?raw=true "nfl pickem schedule editor")
 
 phppickem (nfl pickem game) schedule editor and current schedule table dump
 
