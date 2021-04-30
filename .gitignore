@@ -7,3 +7,4 @@ libs/vendor/*
 libs/vendor/*.*
 */*.json
 conf/config.json
+config.json
