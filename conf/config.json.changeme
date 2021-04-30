@@ -3,5 +3,6 @@
     "password": "test",
     "server":   "localhost",
     "database": "database",
-    "table":    "nflp_schedule"
+    "table":    "nflp_schedule",
+    "apiurl":   "apiurl.for.new.grabber"
 }
