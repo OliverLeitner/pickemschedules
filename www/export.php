@@ -20,7 +20,7 @@ for ($i = 0; $i < $columnCount; $i ++) {
 			$row[$j] = $row[$j];
 
 			if (isset($row[$j])) {
-				if (is_numeric($row[$j])) $sqlScript .= $row[$j]; 
+                if (is_numeric($row[$j])) $sqlScript .= $row[$j];
 				else $sqlScript .= '"' . $row[$j] . '"';
 			} else {
 				$sqlScript .= 0;
