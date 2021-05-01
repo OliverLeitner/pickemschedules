@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 error_reporting(E_ALL);
-ini_set("display_errors", 1);
+ini_set("display_errors", "true");
 //composer requirements
 // require_once 'libs/vendor/autoload.php';
 //database cust funct
@@ -32,28 +33,33 @@ $currentyear = date("Y");
 $lastyear = date("Y", strtotime("-1 year"));
 
 // just a lil writer
-function writeScores($result, $year) {
+function writeScores(string $result, string $year): void {
     if(!is_dir("json")) mkdir("json", 0755, true);
-    $handle = fopen("json/nfl_scoreboard_".$year.".json", "w");
-    fwrite($handle, $result);
-    fclose($handle);
+    try {
+        $handle = fopen("json/nfl_scoreboard_".$year.".json", "w");
+        fwrite($handle, $result);
+        fclose($handle);
+    } catch(Exception $ex) {
+        die($ex);
+    }
 }
 
 // getting the scores either from api, or at every further call through the locally cached json
-function getScores($url, $year) {
+function getScores(string $url, string $year): string {
     // TODO: actual error handling
     $result = '{ "msg": something went wrong, no scores found" }';
     if (!$url) return $result;
     if(!file_exists("json/nfl_scoreboard_".$year.".json")) {
-        $ch = curl_init($url."&dates=".$year);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        writeScores($result, $year);
-    } else {
-        $result = file_get_contents("json/nfl_scoreboard_".$year.".json");
-    }
-    return $result;
+        try {
+            $ch = curl_init($url."&dates=".$year);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            writeScores($result, $year);
+        } catch (Exception $ex) {
+            die($ex);
+        }
+    } else return file_get_contents("json/nfl_scoreboard_".$year.".json");
 }
 
 // get season games
