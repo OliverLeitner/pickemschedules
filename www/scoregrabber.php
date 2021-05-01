@@ -28,33 +28,38 @@ $twig = new \Twig\Environment($loader, array(
     'auto_reload' => true
 ));*/
 
+$currentyear = date("Y");
+$lastyear = date("Y", strtotime("-1 year"));
+
 // just a lil writer
-function writeScores($result) {
-    $handle = fopen("nfl_scoreboard.json", "w");
+function writeScores($result, $year) {
+    if(!is_dir("json")) mkdir("json", 0755, true);
+    $handle = fopen("json/nfl_scoreboard_".$year.".json", "w");
     fwrite($handle, $result);
     fclose($handle);
 }
 
 // getting the scores either from api, or at every further call through the locally cached json
-function getScores($url) {
+function getScores($url, $year) {
     // TODO: actual error handling
     $result = '{ "msg": something went wrong, no scores found" }';
     if (!$url) return $result;
-    if(!file_exists("nfl_scoreboard.json")) {
-        $ch = curl_init($url);
+    if(!file_exists("json/nfl_scoreboard_".$year.".json")) {
+        $ch = curl_init($url."&dates=".$year);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);
-        writeScores($result);
+        writeScores($result, $year);
     } else {
-        $result = file_get_contents("nfl_scoreboard.json");
+        $result = file_get_contents("json/nfl_scoreboard_".$year.".json");
     }
     return $result;
 }
 
 // get season games
 // games at the date: ...['events'] 0 -> all the games...
-var_dump(json_decode(getScores($config->config["apiurl"]), true)['events'][0]);
+var_dump(json_decode(getScores($config->config["apiurl"], $currentyear), true)['events'][0]);
+var_dump(json_decode(getScores($config->config["apiurl"], $lastyear), true)['events'][0]);
 // get a single game competitions always only one entry in this call...
 // var_dump(json_decode($result, true)['events'][0]['competitions'][0]['competitors']);
 // season specific data, adding ['year'] shows the current year as int

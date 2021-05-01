@@ -6,5 +6,6 @@ libs/composer.lock
 libs/vendor/*
 libs/vendor/*.*
 */*.json
+www/json/*.*
 conf/config.json
 config.json
