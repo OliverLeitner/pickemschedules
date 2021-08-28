@@ -46,8 +46,8 @@
                 <input type="hidden" name="gameID"/>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="homeID">home team</label>
-                        <select class="form-control" id="homeID" name="homeID" required>
+                        <label for="homeID">home team (*)</label>
+                        <select class="form-control" id="homeID" name="homeID" onChange="javascript:checkRequiredFields()" required>
                             {% for team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -59,8 +59,8 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="visitorID">visitor team</label>
-                        <select class="form-control" id="visitorID" name="visitorID" required>
+                        <label for="visitorID">visitor team (*)</label>
+                        <select class="form-control" id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields()" required>
                             {% for team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -73,10 +73,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="username">gameTimeEastern</label>
+                    <label for="username">gameTimeEastern (*)</label>
                     <div class="form-group">
                         <div class="input-group date" id="datetimepicker1">
-                            <input type="text" placeholder="YYYY-MM-DD HH:mm:ss" class="form-control datepicker" name="gameTimeEastern" required>
+                            <input type="text" placeholder="YYYY-MM-DD HH:mm" class="form-control datepicker" name="gameTimeEastern" onChange="javascript:checkRequiredFields()" required>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -87,13 +87,29 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="weekNum">weekNum</label>
-                    <input type="number" min="1" class="form-control" name="weekNum" id="weekNum" placeholder="weekNum" required>
+                    <label for="weekNum">weekNum (*)</label>
+                    <input type="number"
+                    min="1"
+                    max="20"
+                    maxlength="2"
+                    class="form-control"
+                    name="weekNum"
+                    id="weekNum"
+                    placeholder="weekNum"
+                    pattern="\d*" onKeyUp="javascript:checkRequiredFields()" required>
                     <div class="invalid-feedback">
                         Please enter a valid week number.
                     </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block mb-3" type="button" onclick="fetchMe($('form').serialize());">Save</button>
+                <div class="mb-3">
+                    <button name="save"
+                        class="btn btn-primary btn-lg btn-block form-control"
+                        type="button"
+                        onclick="fetchMe($('form').serialize());"
+                        disabled="javascript:checkRequiredFields() || isNaN(parseInt(document.getElementsByName('weekNum')[0].value)"
+                        >Save</button>
+                    <legend><p class="text-danger"><small class="mouse">all fields with (*) are required</small></p></legend>
+                </div>
             </form>
         </div>
         <div class="container-fluid">
@@ -118,14 +134,15 @@
                         <tr>
                             <td>{{ schedule['gameID'] }}</td>
                             <td>{{ schedule['weekNum'] }}</td>
-                            <td>{{ schedule['gameTimeEastern'] }}</td>
+                            <td>{{ schedule['gameTimeEastern'] | date("Y-m-d H:i") }}</td>
                             <td>{{ schedule['homeID'] }}</td>
                             <td>{{ schedule['homeScore'] }}</td>
                             <td>{{ schedule['visitorID'] }}</td>
                             <td>{{ schedule['visitorScore'] }}</td>
                             <td>{{ schedule['overtime'] }}</td>
                             <td class="text-right">
-                                <a class="btn btn-primary" title="edit" onclick="command('edit', {{ schedule['gameID'] }});">                                    <i class="fa fa-edit"></i>
+                                <a class="btn btn-primary" title="edit" onclick="command('edit', {{ schedule['gameID'] }});">
+                                    <i class="fa fa-edit"></i>
                                 </a>
                                 <a class="btn btn-primary" title="delete" onclick="command('delete', {{ schedule['gameID'] }});">
                                     <i class="fa fa-trash"></i>
@@ -141,10 +158,10 @@
         <script type="text/javascript">
             $(function () {
                 $('.datepicker').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
+                    format: 'YYYY-MM-DD HH:mm'
                 });
                 $('#datetimepicker1').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm:ss'
+                    format: 'YYYY-MM-DD HH:mm'
                 });
             });
         </script>

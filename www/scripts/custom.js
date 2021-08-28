@@ -1,3 +1,14 @@
+"use strict";
+
+function logHelper() {
+    console.log("weekNum: " + document.getElementsByName('weekNum')[0].value);
+    console.log("gameTimeEastern: " + document.getElementsByName('gameTimeEastern')[0].value);
+    console.log("homeID: " + document.getElementsByName('homeID')[0].value);
+    console.log("visitorID: " + document.getElementsByName('visitorID')[0].value);
+
+    console.log("save button: " + document.getElementsByName('save')[0].disabled);
+}
+
 function fetchMe(formdata) {
     fetch('/db.php?'+formdata)
         .then(function(response) {
@@ -26,4 +37,16 @@ function fillDataToForm(data) {
     document.getElementsByName('gameTimeEastern')[0].value = data.fields['gameTimeEastern'];
     document.getElementsByName('homeID')[0].value = data.fields['homeID'];
     document.getElementsByName('visitorID')[0].value = data.fields['visitorID'];
+}
+
+function checkRequiredFields() {
+    // logHelper(); // debug function
+    if (
+        document.getElementsByName('weekNum')[0].value > 0 &&
+        document.getElementsByName('gameTimeEastern')[0].value !== '' &&
+        document.getElementsByName('homeID')[0].value !== '' &&
+        document.getElementsByName('visitorID')[0].value !== ''
+    ) document.getElementsByName('save')[0].disabled = false;
+    else
+        document.getElementsByName('save')[0].disabled = true;
 }
