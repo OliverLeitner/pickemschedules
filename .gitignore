@@ -9,3 +9,5 @@ libs/vendor/*.*
 www/json/*.*
 conf/config.json
 config.json
+*/*.log
+*.log

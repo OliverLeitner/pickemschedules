@@ -9,6 +9,7 @@
 	    <link rel="stylesheet" href="/scripts/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/scripts/node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="/scripts/node_modules/pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="/scripts/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" />
         <link rel="stylesheet/less" type="text/css" href="styles/fe.less" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -20,9 +21,10 @@
         <script src="/scripts/node_modules/less/dist/less.min.js"></script>
         <script src="/scripts/node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="/scripts/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-        <script src="/scripts/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/scripts/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="/scripts/node_modules/moment/min/moment-with-locales.min.js"></script>
         <script src="/scripts/node_modules/pc-bootstrap4-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/scripts/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="/scripts/custom.js"></script>
     </head>
     <body>
@@ -47,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="homeID">home team (*)</label>
-                        <select class="form-control" id="homeID" name="homeID" onChange="javascript:checkRequiredFields()" required>
+                        <select class="form-control selectpicker" data-live-search="true" id="homeID" name="homeID" onChange="javascript:checkRequiredFields()" required>
                             {% for team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -60,8 +62,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="visitorID">visitor team (*)</label>
-                        <select class="form-control" id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields()" required>
-                            {% for team in teams %}
+                        <select class="form-control selectpicker" data-live-search="true" id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields()" required>
+                            {% for key, team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
                             {{ team['city'] }} {{ team['team'] }}</option>
@@ -135,9 +137,9 @@
                             <td>{{ schedule['gameID'] }}</td>
                             <td>{{ schedule['weekNum'] }}</td>
                             <td>{{ schedule['gameTimeEastern'] | date("Y-m-d H:i") }}</td>
-                            <td>{{ schedule['homeID'] }}</td>
+                            <td data-toggle="tooltip" title="{{ schedule['home-tooltip'] }}">{{ schedule['homeID'] }}</td>
                             <td>{{ schedule['homeScore'] }}</td>
-                            <td>{{ schedule['visitorID'] }}</td>
+                            <td data-toggle="tooltip" title="{{ schedule['visitor-tooltip'] }}">{{ schedule['visitorID'] }}</td>
                             <td>{{ schedule['visitorScore'] }}</td>
                             <td>{{ schedule['overtime'] }}</td>
                             <td class="text-right">
@@ -163,6 +165,8 @@
                 $('#datetimepicker1').datetimepicker({
                     format: 'YYYY-MM-DD HH:mm'
                 });
+                $('.selectpicker').selectpicker();
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
     </body>

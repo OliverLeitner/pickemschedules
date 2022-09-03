@@ -20,3 +20,6 @@ $twig = new \Twig\Environment($loader, array(
     'debug' => true,
     'auto_reload' => true
 ));
+
+// additional db utils
+$dbtools = new DataBase();
