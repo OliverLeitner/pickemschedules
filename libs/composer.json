@@ -1,6 +1,6 @@
 {
     "require": {
-        "twig/twig": "^3.0.5",
-        "adodb/adodb-php": "^5.20.18"
+        "twig/twig": "^3.7.0",
+        "adodb/adodb-php": "^5.22.6"
     }
 }
