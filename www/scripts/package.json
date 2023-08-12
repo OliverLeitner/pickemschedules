@@ -8,7 +8,7 @@
     "bootstrap-select": "^1.13.18",
     "font-awesome": "^4.7.0",
     "less": "^4.2.0",
-    "pc-bootstrap4-datetimepicker-esm": "^4.18.0",
+    "pc-bootstrap4-datetimepicker": "^4.17.51",
     "whatwg-fetch": "^3.6.17"
   },
   "devDependencies": {},
