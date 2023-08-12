@@ -2,7 +2,6 @@ cache/*.*
 cache/*
 www/scripts/node_modules/*
 www/scripts/node_modules/*.*
-libs/composer.lock
 libs/vendor/*
 libs/vendor/*.*
 */*.json
