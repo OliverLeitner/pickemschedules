@@ -8,7 +8,7 @@ the game source (end of life, no longer maintained by the author) can be found a
 
 https://github.com/rothkj1022/phppickem
 
-the database represents the 2020 game schedule as mysql dump file.
+the database represents the 2022 game schedule as mysql dump file.
 
 just remove the prior season schedule table, and then run the dump against your database.
 
