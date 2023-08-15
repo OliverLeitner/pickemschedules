@@ -4,14 +4,14 @@
   "description": "",
   "main": "custom.js",
   "dependencies": {
+    "@eonasdan/tempus-dominus": "^6.7.11",
     "@popperjs/core": "^2.11.8",
-    "bootstrap-select": "^1.13.18",
+    "bootstrap": "^5.3.1",
     "font-awesome": "^4.7.0",
     "less": "^4.2.0",
-    "pc-bootstrap4-datetimepicker": "^4.17.51",
+    "use-bootstrap-select": "^1.0.0",
     "whatwg-fetch": "^3.6.17"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

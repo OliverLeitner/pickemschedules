@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="//getbootstrap.com/favicon.ico">
         <title>fill pickems</title>
-	    <link rel="stylesheet" href="/scripts/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link href="/scripts/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/scripts/node_modules/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/scripts/node_modules/pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-        <link rel="stylesheet" href="/scripts/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" />
+        <link rel="stylesheet" href="/scripts/node_modules/@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css">
+        <link href="/scripts/node_modules/use-bootstrap-select/dist/use-bootstrap-select.min.css" rel="stylesheet">
         <link rel="stylesheet/less" type="text/css" href="styles/fe.less" />
 
         <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
@@ -19,12 +19,6 @@
         <![endif]-->
 
         <script src="/scripts/node_modules/less/dist/less.min.js"></script>
-        <script src="/scripts/node_modules/jquery/dist/jquery.slim.min.js"></script>
-        <script src="/scripts/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-        <script src="/scripts/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/scripts/node_modules/moment/min/moment-with-locales.min.js"></script>
-        <script src="/scripts/node_modules/pc-bootstrap4-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/scripts/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="/scripts/custom.js"></script>
     </head>
     <body>
@@ -49,7 +43,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="homeID">home team (*)</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="homeID" name="homeID" onChange="javascript:checkRequiredFields()" required>
+                        <select class="form-control selectpicker" data-ub-select-search id="homeID" name="homeID" onChange="javascript:checkRequiredFields()" required>
                             {% for team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -62,7 +56,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="visitorID">visitor team (*)</label>
-                        <select class="form-control selectpicker" data-live-search="true" id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields()" required>
+                        <select class="form-control selectpicker" data-ub-select-search id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields()" required>
                             {% for key, team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -77,14 +71,11 @@
                 <div class="mb-3">
                     <label for="username">gameTimeEastern (*)</label>
                     <div class="form-group">
-                        <div class="input-group date" id="datetimepicker1">
-                            <input type="text" placeholder="YYYY-MM-DD HH:mm" class="form-control datepicker" name="gameTimeEastern" onChange="javascript:checkRequiredFields()" required>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
+                        <div class="input-group date" id="datetimepicker1" data-td-target-input="nearest" data-td-target-toggle="nearest">
+                            <span data-td-target="#datetimepicker1" data-td-toggle="datetimepicker">
+                                <span class="fa fa-calendar input-group-text"></span>
                             </span>
-                            <div class="invalid-feedback">
-                                Please enter a valid game time.
-                            </div>
+                            <input id="datetimepicker1Input" type="text" name="gameTimeEastern" class="datepicker form-control" placeholder="YYYY-MM-DD HH:mm" data-td-target="#datetimepicker1" onChange="javascript:checkRequiredFields()" required readonly>
                         </div>
                     </div>
                 </div>
@@ -107,7 +98,7 @@
                     <button name="save"
                         class="btn btn-primary btn-lg btn-block form-control"
                         type="button"
-                        onclick="fetchMe($('form').serialize());"
+                        onClick="fetchMe(document.querySelector('form'));"
                         disabled="javascript:checkRequiredFields() || isNaN(parseInt(document.getElementsByName('weekNum')[0].value)"
                         >Save</button>
                     <legend><p class="text-danger"><small class="mouse">all fields with (*) are required</small></p></legend>
@@ -157,17 +148,82 @@
             </div>
         </div>
         </main>
+        <script src="/scripts/node_modules/less/dist/less.min.js"></script>
+        <script src="/scripts/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+        <script src="/scripts/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/scripts/node_modules/@eonasdan/tempus-dominus/dist/js/tempus-dominus.min.js"></script>
+        <script src="/scripts/node_modules/use-bootstrap-select/dist/use-bootstrap-select.min.js"></script>
         <script type="text/javascript">
-            $(function () {
-                $('.datepicker').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm'
-                });
-                $('#datetimepicker1').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm'
-                });
-                $('.selectpicker').selectpicker();
-                $('[data-toggle="tooltip"]').tooltip();
+            const picker = new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'),
+            { display: {
+                    icons: {
+                        type: 'icons',
+                        time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-arrow-up',
+                        down: 'fa fa-arrow-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-calendar-check',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-xmark'
+                    },
+                    components: {
+                        calendar: true,
+                        date: true,
+                        month: true,
+                        year: true,
+                        decades: true,
+                        clock: true,
+                        hours: true,
+                        minutes: true,
+                        seconds: false,
+                    },
+                },
+                localization: {
+                    dateFormats: {
+                        L: 'yyyy-MM-dd H:mm T'
+                    },
+                    format: 'L'
+                }
             });
+
+            const picker2 = new tempusDominus.TempusDominus(document.getElementById('datetimepicker1Input'),
+            { display: {
+                    icons: {
+                        type: 'icons',
+                        time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-arrow-up',
+                        down: 'fa fa-arrow-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-calendar-check',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-xmark'
+                    },
+                    components: {
+                        calendar: true,
+                        date: true,
+                        month: true,
+                        year: true,
+                        decades: true,
+                        clock: true,
+                        hours: true,
+                        minutes: true,
+                        seconds: false,
+                    },
+                },
+                localization: {
+                    dateFormats: {
+                        L: 'yyyy-MM-dd H:mm T'
+                    },
+                    format: 'L'
+                }
+            });
+
+            new UseBootstrapSelect(document.getElementById('homeID'))
+            new UseBootstrapSelect(document.getElementById('visitorID'))
         </script>
     </body>
 </html>

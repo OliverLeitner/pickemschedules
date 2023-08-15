@@ -9,8 +9,14 @@ function logHelper() {
     console.log("save button: " + document.getElementsByName('save')[0].disabled);
 }
 
+function serialize(formdata) {
+    const data = new FormData(formdata);
+    const queryString = new URLSearchParams(data).toString();
+    return queryString;
+}
+
 function fetchMe(formdata) {
-    fetch('/db.php?'+formdata)
+    fetch('/db.php?'+serialize(formdata))
         .then(function(response) {
             return response.json();
         })
