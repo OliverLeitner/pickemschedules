@@ -100,3 +100,14 @@ function loadCal(id) {
                  }
              });
 }
+
+function showDropDown(id) {
+    if (id == "homeID")
+        return document.getElementsByClassName("dropdown-menu")[0].classList.add("show");
+    return document.getElementsByClassName("dropdown-menu")[1].classList.add("show");
+}
+
+function hideDropDown() {
+    document.getElementsByClassName("dropdown-menu")[0].classList.remove("show");
+    document.getElementsByClassName("dropdown-menu")[1].classList.remove("show");
+}

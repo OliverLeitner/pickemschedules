@@ -38,9 +38,11 @@
             <form class="needs-validation" novalidate>
                 <input type="hidden" name="gameID"/>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3"
+                        onmouseover="javascript:showDropDown('homeID');"
+                        onmouseout="javascript:hideDropDown();">
                         <label for="homeID">home team (*)</label>
-                        <select class="form-control" data-ub-select-search id="homeID" name="homeID" onChange="javascript:checkRequiredFields();" required>
+                        <select class="form-control selectpicker" data-ub-select-search id="homeID" name="homeID" onChange="javascript:checkRequiredFields();" required>
                             {% for team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
@@ -51,9 +53,11 @@
                             Please choose a home team.
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3"
+                        onmouseover="javascript:showDropDown('visitorID');"
+                        onmouseout="javascript:hideDropDown();">
                         <label for="visitorID">visitor team (*)</label>
-                        <select class="form-control" data-ub-select-search id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields();" required>
+                        <select class="form-control selectpicker" data-ub-select-search id="visitorID" name="visitorID" onChange="javascript:checkRequiredFields();" required>
                             {% for key, team in teams %}
                             <option id="{{ team['teamID'] }}" name="{{ team['teamID'] }}" value="{{ team['teamID'] }}">
                             {{ team['teamID'] }} / {{ team['conference'] }} / {{ team['division'] }} -
