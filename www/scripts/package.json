@@ -1,16 +1,16 @@
 {
   "name": "scripts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "custom.js",
   "dependencies": {
-    "@eonasdan/tempus-dominus": "^6.7.11",
+    "@eonasdan/tempus-dominus": "^6.10.4",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.1",
+    "bootstrap": "^5.3.7",
     "font-awesome": "^4.7.0",
-    "less": "^4.2.0",
-    "use-bootstrap-select": "^1.0.0",
-    "whatwg-fetch": "^3.6.17"
+    "less": "^4.4.0",
+    "use-bootstrap-select": "^2.2.1",
+    "whatwg-fetch": "^3.6.20"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
